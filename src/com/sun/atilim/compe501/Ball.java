@@ -57,7 +57,7 @@ public class Ball {
 		this.color = color;
 	}
 	
-    public void reflectHorz () { 
+	public void reflectHorz () { 
     	dx = - dx; 
     }
 
@@ -88,5 +88,6 @@ public class Ball {
     public void paint (Graphics g) {
         g.setColor (color);
         g.fillOval (location.x-radius, location.y-radius, 2*radius, 2*radius);
+        
     }	
 }
