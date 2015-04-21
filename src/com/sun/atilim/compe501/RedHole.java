@@ -2,12 +2,12 @@ package com.sun.atilim.compe501;
 
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.Rectangle;
 
-public class TargetAdaptor  implements TargetInterface {
+public class RedHole extends Holes{
 
-	protected int points=0;
+	public RedHole(Point location, int radius) {
+		super(location, radius);
+	}
 	public void hitByBall() {}
 	public void paint(Graphics g) {}
-
 }
