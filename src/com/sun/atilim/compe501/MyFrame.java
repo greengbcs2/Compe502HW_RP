@@ -26,16 +26,12 @@ public class MyFrame extends JFrame {
 		setTitle("A window");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		addMouseListener(new MyMouseListener());
-		Rectangle rec = new Rectangle(100, 100, 20, 20);
+		addBricks(15, 30, 25);
 		
-		Color c = Color.BLACK;
-		Brick b=new Brick(rec, c);
-		bricks.add(b);
 	}
 
 	public void paint(Graphics g) {
 		super.paint(g);
-
 		for (int i = 0; i < balls.size(); i++) {
 			balls.get(i).paint(g);
 		}
@@ -43,6 +39,15 @@ public class MyFrame extends JFrame {
 			bricks.get(i).paint(g);
 		}
 
+	}
+	
+	private void addBricks(int brickNumber, int w, int h){
+		for(int i=0; i<brickNumber;i++){
+			Rectangle rec = new Rectangle(50+(w+5)*i, 200, w, h);
+			Color c = Color.BLACK;
+			Brick b = new Brick(rec, c);
+			bricks.add(b);
+			}
 	}
 
 	public static void main(String[] args) {
