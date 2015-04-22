@@ -18,7 +18,9 @@ public class MyFrame extends JFrame {
 	private Vector<Brick> bricks = new Vector<Brick>();
 	public static final int MYHEIGHT = 500;
 	public static final int MYWIDTH = 700;
-	Boolean isBrickTouchedByBall;
+	private Boolean isBrickTouchedByBall;
+	private Peddal peddal;
+	
 
 	public MyFrame() {
 		isBrickTouchedByBall = false;
@@ -27,17 +29,27 @@ public class MyFrame extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		addMouseListener(new MyMouseListener());
 		addBricks(15, 30, 25);
+		addPeddal();
 		
+	}
+
+	private void addPeddal() {
+		System.out.println("test :"+getContentPane().getHeight());
+			Rectangle rec = new Rectangle(200,MYHEIGHT-10, 150, 5);
+			Color c = Color.BLACK;
+			peddal= new Peddal(rec, c);
 	}
 
 	public void paint(Graphics g) {
 		super.paint(g);
+		peddal.paint(g);
 		for (int i = 0; i < balls.size(); i++) {
 			balls.get(i).paint(g);
 		}
 		for (int i = 0; i < bricks.size(); i++) {
 			bricks.get(i).paint(g);
 		}
+		
 
 	}
 	
@@ -56,8 +68,15 @@ public class MyFrame extends JFrame {
 	}
 
 	private class MyMouseListener extends MouseAdapter {
-		public void mouseClicked(MouseEvent e) {
 
+		@Override
+		public void mouseMoved(MouseEvent e) {
+			super.mouseMoved(e);
+			peddal.moveTo(e.getX());
+			System.out.println("demo");
+		}
+
+		public void mouseClicked(MouseEvent e) {
 			Random r = new Random();
 			Ball b = new Ball(new Point(e.getX(), e.getY()), r.nextInt(15) + 3);
 			b.setColor(new Color(r.nextInt(255), r.nextInt(255), r.nextInt(255)));
@@ -66,6 +85,7 @@ public class MyFrame extends JFrame {
 			(new MyBallController(b)).start();
 
 		}
+	 
 	}
 
 	private class MyBallController extends Thread {

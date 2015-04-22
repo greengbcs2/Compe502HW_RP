@@ -11,13 +11,6 @@ public class Brick extends Target{
 		super(rectangle,color);
 	}
 	
-	public boolean hitByBall(Rectangle rectangleByBall) {
-		if(rectangleByBall.intersects(rectangle))
-			return true;
-		else
-			return false;
-		
-	}
 	public void removeBrick(Graphics g){
 		g.clearRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
 	}
