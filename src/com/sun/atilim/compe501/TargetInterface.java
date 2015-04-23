@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 
 public interface TargetInterface {
 
-	void hitByBall();
+	boolean hitByBall();
+
 	void paint(Graphics g);
 }

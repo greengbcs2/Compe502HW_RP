@@ -1,17 +1,18 @@
 package com.sun.atilim.compe501;
+
 import java.awt.*;
 import javax.swing.*;
 
 public class BallWorldPanel extends JPanel {
 
-	public BallWorldPanel (Color ballColor) {
+	public BallWorldPanel(Color ballColor) {
 		aBall.setColor(ballColor);
 		aBall.setMotion(3.0, 6.0);
 	}
 
 	private Ball aBall = new Ball(new Point(10, 15), 5);
-	
-	public void paint (Graphics g) {
+
+	public void paint(Graphics g) {
 		super.paint(g);
 		aBall.paint(g);
 	}

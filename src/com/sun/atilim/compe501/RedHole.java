@@ -1,13 +1,14 @@
 package com.sun.atilim.compe501;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
-public class RedHole extends Holes{
+public class RedHole extends Holes {
+	private static Color COLOR = Color.RED;
 
 	public RedHole(Point location, int radius) {
-		super(location, radius);
+		super(location, radius, COLOR);
 	}
-	public void hitByBall() {}
-	public void paint(Graphics g) {}
+
 }
