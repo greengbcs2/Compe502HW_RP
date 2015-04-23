@@ -10,7 +10,7 @@ public class Peddal extends Target {
 	private double dx;	
 	
 	public Peddal(Rectangle r, Color color) {
-		super(color);
+		super(r,color);
 		rectangle=r;
 	}
 	public Rectangle getRectangle() {
@@ -25,13 +25,9 @@ public class Peddal extends Target {
 		this.dx = dx;
 	}
 
-	public boolean hitByBall(Rectangle rectangleByBall) {
-		return false;
-	}
-
     @SuppressWarnings("deprecation")
-	public void moveTo (int x) { 
-    	rectangle.move(x, 10); 
+	public void moveTo (int x,int y) { 
+    	rectangle.move(x, y); 
     }
 
     public void move (){ 

@@ -28,14 +28,20 @@ public class MyFrame extends JFrame {
 		setTitle("A window");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		addMouseListener(new MyMouseListener());
+		addMouseMotionListener(new MyMouseListener());
 		addBricks(15, 30, 25);
 		addPeddal();
+		addHoles();
 		
 	}
 
+	private void addHoles() {
+		Random r = new Random();
+		BlackHole blackHole=new BlackHole(new Point(200, 100), 30);
+	}
+
 	private void addPeddal() {
-		System.out.println("test :"+getContentPane().getHeight());
-			Rectangle rec = new Rectangle(200,MYHEIGHT-10, 150, 5);
+			Rectangle rec = new Rectangle(200,MYHEIGHT-10, 150, 15);
 			Color c = Color.BLACK;
 			peddal= new Peddal(rec, c);
 	}
@@ -72,8 +78,11 @@ public class MyFrame extends JFrame {
 		@Override
 		public void mouseMoved(MouseEvent e) {
 			super.mouseMoved(e);
-			peddal.moveTo(e.getX());
-			System.out.println("demo");
+			if(MYWIDTH-e.getX()<peddal.getRectangle().getWidth())
+				peddal.moveTo((int) (MYWIDTH-peddal.getRectangle().getWidth()),MYHEIGHT-10);
+			else
+			peddal.moveTo(e.getX(),MYHEIGHT-10);
+			
 		}
 
 		public void mouseClicked(MouseEvent e) {
@@ -103,9 +112,9 @@ public class MyFrame extends JFrame {
 				int x = myBall.getX();
 				int y = myBall.getY();
 				int r = myBall.getRadius();
+				Rectangle rectanglBall=new Rectangle(x - r, y - r, 2 * r, 2 * r);
 				for (int i = 0; i < bricks.size(); i++) {
-					isBrickTouchedByBall = bricks.get(i).hitByBall(
-							new Rectangle(x - r, y - r, 2 * r, 2 * r));
+					isBrickTouchedByBall = bricks.get(i).hitByBall(rectanglBall);
 					if (isBrickTouchedByBall) {
 						myBall.reflectVert();
 						bricks.remove(i);
@@ -116,7 +125,7 @@ public class MyFrame extends JFrame {
 				if (x < r || x > getWidth() - r)
 					myBall.reflectHorz();
 
-				if (y < r || y > getHeight() - r)
+				if (y < r || peddal.hitByBall(rectanglBall))
 					myBall.reflectVert();
 
 				try {
