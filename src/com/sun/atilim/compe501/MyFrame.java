@@ -24,8 +24,11 @@ public class MyFrame extends JFrame {
 
 		private void gameOver() {
 			stop = false;
-			JOptionPane.showMessageDialog(null, Messages.getString("MyFrame.1") + points, //$NON-NLS-1$
-					Messages.getString("MyFrame.2"), JOptionPane.INFORMATION_MESSAGE); //$NON-NLS-1$
+			JOptionPane
+					.showMessageDialog(
+							null,
+							Messages.getString("MyFrame.1") + points, //$NON-NLS-1$
+							Messages.getString("MyFrame.2"), JOptionPane.INFORMATION_MESSAGE); //$NON-NLS-1$
 		}
 
 		@Override
@@ -72,9 +75,17 @@ public class MyFrame extends JFrame {
 					if (x < r || x > getWidth() - r)
 						myBall.reflectHorz();
 
-					if (y < r || peddal.hitByBall(rectangleBall))
+					if (y < r)
 						myBall.reflectVert();
-					else if (y > MYHEIGHT) {
+					else if (peddal.hitByBall(rectangleBall)) {
+						myBall.reflectVert();
+						while (peddal.hitByBall(rectangleBall)) {
+							if (peddal.hitByBall(rectangleBall))
+								break;
+							else
+								myBall.reflectVert();
+						}
+					} else if (y > MYHEIGHT) {
 						gameOver();
 
 					}
@@ -89,6 +100,7 @@ public class MyFrame extends JFrame {
 			}
 		}
 	}
+
 	private class MyMouseListener extends MouseAdapter {
 
 		@Override
@@ -120,18 +132,23 @@ public class MyFrame extends JFrame {
 		}
 
 	}
+
 	public static final int BLACK_HOLE_RADIUS = 30;
 	public static final int MYHEIGHT = 500;
 	public static final int MYWIDTH = 700;
 	public static final int RED_HOLE_RADIUS = 10;
+	public static final int BRICK_WIDTH = 30;
+	public static final int BRICK_HEIGHT = 25;
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	public static void main(String[] args) {
 		MyFrame myWindow = new MyFrame();
 		myWindow.setVisible(true);
 	}
+
 	private Vector<Ball> balls = new Vector<Ball>();
 	Holes blackHole;
 	private Vector<Brick> bricks = new Vector<Brick>();
@@ -153,15 +170,16 @@ public class MyFrame extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		addMouseListener(new MyMouseListener());
 		addMouseMotionListener(new MyMouseListener());
-		addBricks(15, 30, 25);
+		addBricks(15);
 		addPeddal();
 		addHoles();
 
 	}
 
-	private void addBricks(int brickNumber, int w, int h) {
+	private void addBricks(int brickNumber) {
 		for (int i = 0; i < brickNumber; i++) {
-			Rectangle rec = new Rectangle(50 + (w + 5) * i, 200, w, h);
+			Rectangle rec = new Rectangle(50 + (BRICK_WIDTH + 5) * i, 200,
+					BRICK_WIDTH, BRICK_HEIGHT);
 			Brick b = new Brick(rec);
 			bricks.add(b);
 		}
