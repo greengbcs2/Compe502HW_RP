@@ -1,24 +1,25 @@
 package com.sun.atilim.compe501;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Color;
+
+import javax.swing.JFrame;
 
 public class BallWorld extends JFrame {
 
+	public static final int FrameHeight = 400;
+
+	public static final int FrameWidth = 600;
 	public static void main(String[] args) {
 		BallWorld world = new BallWorld(Color.red);
 		world.setVisible(true);
 		world.run();
 		// System.exit(0);
 	}
-
-	public static final int FrameWidth = 600;
-	public static final int FrameHeight = 400;
 	private BallWorldPanel panel;
 
 	private BallWorld(Color ballColor) {
 		setSize(FrameWidth, FrameHeight);
-		setTitle("Ball World");
+		setTitle(Messages.getString("BallWorld.0")); //$NON-NLS-1$
 
 		panel = new BallWorldPanel(ballColor);
 		getContentPane().add(panel);

@@ -5,22 +5,16 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 public class Target extends TargetAdaptor {
-	Rectangle rectangle;
 	Color color;
-
-	public Target(Rectangle r, Color color) {
-		this.rectangle = r;
-		this.color = color;
-	}
+	Rectangle rectangle;
 
 	public Target(Color color) {
 		this.color = color;
 	}
 
-	public void paint(Graphics g) {
-		g.setColor(color);
-		g.fillRect(rectangle.x, rectangle.y, (int) rectangle.getWidth(),
-				(int) rectangle.getHeight());
+	public Target(Rectangle r, Color color) {
+		this.rectangle = r;
+		this.color = color;
 	}
 
 	public boolean hitByBall(Rectangle rectangleByBall) {
@@ -29,6 +23,13 @@ public class Target extends TargetAdaptor {
 		else
 			return false;
 
+	}
+
+	@Override
+	public void paint(Graphics g) {
+		g.setColor(color);
+		g.fillRect(rectangle.x, rectangle.y, (int) rectangle.getWidth(),
+				(int) rectangle.getHeight());
 	}
 
 }
